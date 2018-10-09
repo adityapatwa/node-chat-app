@@ -1,17 +1,25 @@
-const bodyParse = require('body-parser');
 const express = require('express');
+const http = require('http');
 const path = require('path');
+const socketIO = require('socket.io');
 
+const port = process.env.PORT || 3000;
 const publicPath = path.join(__dirname,'../public');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const server = http.createServer(app);
+const io = socketIO(server);
 
-app.use(bodyParse.json());
+io.on('connection', (socket) => {
+    console.log('New user connected');
 
+    socket.on('disconnect', () => {
+        console.log('User was disconnected');
+    });
+});
 app.use(express.static(publicPath));
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Started on port ${port}`);
 });
 
