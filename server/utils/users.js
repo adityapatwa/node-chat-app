@@ -27,6 +27,10 @@ class Users {
         let namesArray = users.map((user) => user.name);
         return namesArray;
     }
+
+    isUnique (name, room) {
+        return ((this.users.filter((user) => user.name === name && user.room === room)).length === 0);
+    }
 }
 
 module.exports = {Users};

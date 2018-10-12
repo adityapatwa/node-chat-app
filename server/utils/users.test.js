@@ -66,4 +66,16 @@ describe('Users', () => {
         let user = usersObject.getUser('99');
         expect(user).toBeUndefined();
     });
+
+    it('should return true for the same name and room', () => {
+        expect(usersObject.isUnique('Siri', 'The Witcher 3')).toBe(true);
+    });
+
+    it('should return false for the same name and room', () => {
+        expect(usersObject.isUnique('Geralt', 'The Witcher 3')).toBe(false);
+    });
+
+    it('should return true for the same name and different room', () => {
+        expect(usersObject.isUnique('Geralt', 'Just Cause 3')).toBe(true);
+    });
 });
