@@ -22,9 +22,13 @@ io.on('connection', (socket) => {
             return callaback('Name and room name are required');
         }
 
+        //Room name is now case insensitive
+        params.room = params.room.toUpperCase();
+
         if(!users.isUnique(params.name, params.room)) {
             return callaback('User already exists');
         }
+
         socket.join(params.room);
 
         // Remove user from existing room if he/she joins another one
